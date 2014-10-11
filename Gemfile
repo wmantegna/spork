@@ -14,6 +14,7 @@ gem 'high_voltage'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'sendgrid'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_20]
@@ -21,10 +22,12 @@ group :development do
   gem 'hub', :require=>nil
   gem 'rails_layout'
 end
+
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'sqlite3'
+  gem 'dotenv-rails'
 end
 group :production do
   gem 'pg'
