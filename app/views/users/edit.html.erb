@@ -1,0 +1,30 @@
+<h2>Edit User</h2>
+
+<%= form_for @user do |f| %>
+	<table class="formTable">
+		
+
+    <tr>
+    	<td>				
+				  <% @preferences.each do |p| %>
+
+						<% if @user.preferences.exists? (p) and not p.nil? %>
+				  		<%= check_box_tag "prefs[]", p.id, true %>
+				  	<% else %>
+				  		<%= check_box_tag "prefs[]", p.id, false %>
+				  	<% end %>
+				  	
+				  	<%= p.name %>
+				  	<br />
+
+				  <% end %>
+
+				</td>
+
+    <tr>
+    	<td colspan="2">
+    		<br />
+    		<%= f.submit %>
+    	</td>
+  </table>
+<% end %>

@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141011205632) do
+ActiveRecord::Schema.define(version: 20141011224627) do
+
+  create_table "preferences", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "preferences_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "preference_id"
+  end
+
+  create_table "restrictions", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "restrictions_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "restriction_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

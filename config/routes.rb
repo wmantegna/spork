@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  
+  resources :restrictions
+  resources :preferences
+
   resources :users
   root to: 'visitors#index'
   get '/auth/:provider/callback' => 'sessions#create'

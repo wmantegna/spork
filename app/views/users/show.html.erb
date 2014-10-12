@@ -1,2 +1,11 @@
 <h3>User</h3>
 <p>Name: <%= @user.name if @user.name %></p>
+
+
+<h3>Preferences</h3>
+<% @user.preferences.each do |p| %>
+	<%= p.name %><br />
+<% end %>
+
+<br />
+<%= link_to 'Edit Profile', edit_user_path(@user) %>
