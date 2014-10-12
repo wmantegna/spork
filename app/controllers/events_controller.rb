@@ -16,17 +16,19 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @restaurants = Restaurant.all
+    @users = User.all
   end
 
   # GET /events/1/edit
   def edit
+    @users = User.all
   end
+
 
   # POST /events
   # POST /events.json
   def create
     @event = Event.new(event_params)
-
 
 
     respond_to do |format|
@@ -40,9 +42,38 @@ class EventsController < ApplicationController
     end
   end
 
+
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
+
+
+    ################################################
+    ##              Preferences
+    ################################################
+    #get items from input and add to an array
+    @users = Array.new
+    unless params[:users].nil?
+      params[:users].each do |u|
+        @users << User.find(u)
+      end
+    end
+
+    #if event item is NOT in array, remove it from event
+    @event.users.each do |u|
+      unless @prefs.include? (u)
+        EventsUsers.where(event_id: @event, user_id: u).first.destroy
+      end
+    end
+
+    #if item is NOT in event array, add it to event
+    @users.each do |u|
+      unless @event.users.exists? (u)
+        @event.users << User.find(u)
+      end
+    end
+    ################################################
+
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -53,6 +84,7 @@ class EventsController < ApplicationController
       end
     end
   end
+
 
   # DELETE /events/1
   # DELETE /events/1.json

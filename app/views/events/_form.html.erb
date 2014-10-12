@@ -11,7 +11,11 @@
     </div>
   <% end %>
 
-  <table>
+  <table class="table">
+    <tr>
+      <th>Data</th>
+      <th>Users</th>
+    </tr>
     <tr>
       <td>
 
@@ -29,6 +33,22 @@
         </div>
       </td>
       <td>
+
+
+
+        <% @users.each do |u| %>
+
+        <% unless u.nil? %>
+          <% if @event.users.exists? (u) %>
+            <%= check_box_tag "users[]", u.id, true %>
+            <% else %>
+              <%= check_box_tag "users[]", u.id, false %>
+            <% end %>
+          <% end %>
+
+          <%= u.name %>
+          <br />
+        <% end %>
 
       </td>
     </tr>
