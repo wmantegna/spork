@@ -1,0 +1,73 @@
+<%= form_for(@restaurant) do |f| %>
+
+<table>
+  <tr>
+    <td>
+      
+      <% if @restaurant.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this restaurant from being saved:</h2>
+
+          <ul>
+          <% @restaurant.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :address %><br>
+        <%= f.text_field :address %>
+      </div>
+      <div class="field">
+        <%= f.label :zip %><br>
+        <%= f.number_field :zip %>
+      </div>
+
+    </td>
+    <td>        
+      <% @preferences.each do |p| %>
+
+        <% if @restaurant.preferences.exists? (p) and not p.nil? %>
+          <%= check_box_tag "prefs[]", p.id, true %>
+        <% else %>
+          <%= check_box_tag "prefs[]", p.id, false %>
+        <% end %>
+        
+        <%= p.name %>
+        <br />
+
+      <% end %>
+
+    </td>
+    <td>
+
+      <% @restrictions.each do |r| %>
+
+      <% unless r.nil? %>
+        <% if @restaurant.restrictions.exists? (r) %>
+          <%= check_box_tag "restrics[]", r.id, true %>
+          <% else %>
+            <%= check_box_tag "restrics[]", r.id, false %>
+          <% end %>
+        <% end %>
+
+        <%= r.name %>
+        <br />
+      <% end %>
+
+    </td>
+  </tr>
+</table>
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,27 +1,47 @@
 <h2>Edit User</h2>
 
 <%= form_for @user do |f| %>
-	<table class="formTable">
+	<table class="table">
 		
+		<tr>
+			<th>Preferences</th>
+			<th>Restrictions</th>
+		</tr>
 
     <tr>
     	<td>				
-				  <% @preferences.each do |p| %>
+			  <% @preferences.each do |p| %>
 
-						<% if @user.preferences.exists? (p) and not p.nil? %>
-				  		<%= check_box_tag "prefs[]", p.id, true %>
+					<% if @user.preferences.exists? (p) and not p.nil? %>
+			  		<%= check_box_tag "prefs[]", p.id, true %>
+			  	<% else %>
+			  		<%= check_box_tag "prefs[]", p.id, false %>
+			  	<% end %>
+			  	
+			  	<%= p.name %>
+			  	<br />
+
+			  <% end %>
+
+			</td>
+    	<td>
+
+    		<% @restrictions.each do |r| %>
+
+    		<% unless r.nil? %>
+    			<% if @user.restrictions.exists? (r) %>
+    				<%= check_box_tag "restrics[]", r.id, true %>
 				  	<% else %>
-				  		<%= check_box_tag "prefs[]", p.id, false %>
+				  		<%= check_box_tag "restrics[]", r.id, false %>
 				  	<% end %>
-				  	
-				  	<%= p.name %>
-				  	<br />
+	    		<% end %>
 
-				  <% end %>
+	    		<%= r.name %>
+	    		<br />
+	    	<% end %>
 
-				</td>
-
-    <tr>
+    	</td>
+    </tr>
     	<td colspan="2">
     		<br />
     		<%= f.submit %>

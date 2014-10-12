@@ -3,9 +3,28 @@
 
 
 <h3>Preferences</h3>
-<% @user.preferences.each do |p| %>
-	<%= p.name %><br />
-<% end %>
+
+<table class="table">
+	<tr>
+		<th>Preferences</th>
+		<th>Restrictions</th>
+	</tr>
+	<tr>
+		<td>
+
+			<% @user.preferences.each do |p| %>
+				<%= p.name %><br />
+			<% end %>
+
+		</td>
+		<td>
+
+			<% @user.restrictions.each do |r| %>
+				<%= r.name %><br />
+			<% end %>
+
+		</td>
+	</tr>
 
 <br />
 <%= link_to 'Edit Profile', edit_user_path(@user) %>
