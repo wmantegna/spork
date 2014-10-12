@@ -1,0 +1,103 @@
+
+<style type="text/css">
+	.choice {
+		border: 1px solid black;
+		width: 400px;
+		height:75px;
+	}
+
+	.map {
+		height:400px;
+		width:400px;
+	}
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+			//$('.map').css('display','none');
+			//$('.map')[0].css('display', 'inline');
+			//$('.choice')[0].css('backgroundColor', 'blue');
+			//$('.choice')[0].css('color', 'white');
+
+
+		$('.choice').click(function() {
+
+			$('.choice').css('backgroundColor', 'white');
+			$('.choice').css('color', 'blue');
+			//$('.map').css('display', 'none');
+
+			$(this).css('backgroundColor', 'blue');
+			$(this).css('color', 'white');
+	
+			var id = $(this)[0].id;
+			var src = "";
+
+			if (id === "0") {
+				src = "grimaldis.png";
+			} else if (id === "1") {
+				src = "lukes.png";
+			} else if (id === "2") {
+				src = "southhosp.png";
+			} else {
+				src = "";
+			}
+
+			// switch (id) {
+			// 	case 0:
+			// 		src = '';
+			// 		break;
+			// 	case 1:
+			// 		src = 'lukes.png';
+			// 		break;
+			// 	case 2:
+			// 		src = 'southhosp.png');
+			// 		break;
+			// }
+			console.log("id = " + id + " | src = " + src);
+			
+			$('.map').attr('src',"/assets/" + src);
+
+		});
+
+		$('.choice')[0].click();
+	});
+</script>
+
+
+<table>
+	<tr>
+		<th style="width:100%; background-color: white; color: green; padding: 20px 0; border:1px solid black; font:2em; text-align:center;">
+			Results
+		</th>
+	</tr>
+	<tr>
+		<td>
+
+			<img class="map" />
+
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<% rating = 5 %>
+			<% count = 0 %>
+			<% @restaurants.each do |r| %>
+
+				<div id="<%= count %>" class="choice">
+
+					<span style="position: relative; left: 350px;top: 0; font-size:10pt; ">Rating</span>
+
+					<span style="font-size:14pt"><%= r.name %></span>
+					<br />
+					<%= r.address %>
+					<%= r.zip %>
+					<span style="float:right; font-size:16pt; padding: 10px"><%= rating %></span>
+				</div>
+
+				<% rating -= 1 %>
+				<% count += 1 %>
+			<% end %>
+		</td>
+	</tr>
+</table>

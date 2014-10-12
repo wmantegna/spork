@@ -1,1 +1,55 @@
-userprefs.html.erb
+<script type="text/javascript">
+	$(document).ready(function() {
+
+
+		$('.restric').click(function() {	
+			var id = $(this)[0].id;
+			console.log("id = " + id);
+			$('.chk[value="'+id+'"]')[0].checked = true;
+			$(this).css('backgroundColor', 'blue');
+			$(this).css('color', 'white');
+		});
+
+	});
+</script>
+
+
+<table>
+		<tr>
+			<th style="width:100%; background-color: white; color: green; padding: 20px 0; border:1px solid black; font:2em; text-align:center;">
+				Choose Preferences:
+			</th>
+		</tr>
+		<tr>
+			<td>
+
+					<% i = 100; %>
+					<% counter = 1; %>
+	        <% @preferences.each do |p| %>
+	        	
+	        	<%= check_box_tag "prefs[]", p.id, false, class: "chk", style: "position:absolute; top:-1000px; left:-1000px;" %>
+	          <div 
+          		id="<%= counter %>"
+		          class="col-xs-6 col-sm-6 restric" 
+		          style="border: 1px solid black; background-color: white; color: blue; padding:30px; text-align:center;"
+		        />
+	            <%= p.name %>
+	          </div>
+
+	           <% i += 50; %>
+	           <% counter += 1; %>
+	       <% end %>
+
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+
+				<a href="/users/1/choices" style="width:100%; padding: 0 250px; line-height:2em; background-color:green; color:white; font-size:2em;">Where We Eatin'?</a>
+
+				<% #button_to 'Next Page', user_prefs_path(@user), method: :get, style: "width:100%; min-height:50px; background-color:green; border:1px solid black; color:white; font-size:2em;" %>
+
+			</td>
+		</tr>
+	</table>

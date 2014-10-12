@@ -7,6 +7,15 @@ Rails.application.routes.draw do
   resources :preferences
   resources :users
   
+get '/users/:id/restrictions', to: "users#userRestrics", as: "user_restrics"
+get '/users/:id/restrictions', to: "users#userRestrics_update", as: "update_user_restrics"
+
+get '/users/:id/cuisines', to: "users#userPrefs", as: "user_prefs"
+get '/users/:id/cuisines_up', to: "users#userPrefs_update", as: "update_user_prefs"
+
+get '/users/:id/choices', to: "users#results", as: "user_results"
+
+
   root to: 'visitors#index'
   get '/auth/:provider/callback' => 'sessions#create'
   get '/signin' => 'sessions#new', :as => :signin
