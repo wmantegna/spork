@@ -1,0 +1,41 @@
+<%= form_for(@event) do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+    <tr>
+      <td>
+
+        <div class="field">
+          <%= f.label :name %><br>
+          <%= f.text_field :name %>
+        </div>
+        <div class="field">
+          <%= f.label :zip %><br>
+          <%= f.number_field :zip %>
+        </div>
+        <div class="field">
+          <%= f.label :restaurant %><br />
+          <%= f.collection_select :restaurant_id, Restaurant.order(:name),:id,:name, include_blank: true %>
+        </div>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+  </table>
+  
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

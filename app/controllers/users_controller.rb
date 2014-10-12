@@ -25,11 +25,11 @@ class UsersController < ApplicationController
   	################################################
 		#get items from input and add to an array
 		@prefs = Array.new
-  	params[:prefs].each do |p|
-      @prefs << Preference.find(p)
+    unless params[:prefs].nil?
+    	params[:prefs].each do |p|
+        @prefs << Preference.find(p)
+      end
     end
-
-
 
     #if event item is NOT in array, remove it from event
     @user.preferences.each do |p|
@@ -37,8 +37,6 @@ class UsersController < ApplicationController
         PreferencesUsers.where(user_id: @user, preference_id: p).first.destroy
       end
     end
-
-
 
     #if item is NOT in event array, add it to event
     @prefs.each do |p|
@@ -54,8 +52,10 @@ class UsersController < ApplicationController
   	################################################
 		#get items from input and add to an array
 		@restrics = Array.new
-  	params[:restrics].each do |r|
-      @restrics << Restriction.find(r)
+    unless params[:restrics].nil?
+    	params[:restrics].each do |r|
+        @restrics << Restriction.find(r)
+      end
     end
 
 

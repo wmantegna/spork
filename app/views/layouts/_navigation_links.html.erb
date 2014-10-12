@@ -12,6 +12,8 @@
 
 <% if user_signed_in? %>
   <li><%= link_to 'My Profile', current_user %></li>
-  <li><%= link_to 'Users', users_path %></li>
-  <li><%= link_to 'Restaurants', restaurants_path %></li>
 <% end %>
+
+<li><%= link_to 'Users', users_path %></li>
+<li><%= link_to 'Restaurants', restaurants_path %></li>
+<li><%= link_to 'Events', events_path %></li>

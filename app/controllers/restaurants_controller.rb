@@ -15,6 +15,8 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/new
   def new
     @restaurant = Restaurant.new
+    @preferences = Preference.all
+    @restrictions = Restriction.all
   end
 
   # GET /restaurants/1/edit
@@ -28,6 +30,65 @@ class RestaurantsController < ApplicationController
   # POST /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
+
+
+    ################################################
+    ##              Preferences
+    ################################################
+    #get items from input and add to an array
+    @prefs = Array.new
+    unless params[:prefs].nil?
+      params[:prefs].each do |p|
+        @prefs << Preference.find(p)
+      end
+    end
+
+    #if event item is NOT in array, remove it from event
+    @restaurant.preferences.each do |p|
+      unless @prefs.include? (p)
+        PreferencesRestaurants.where(restaurant_id: @restaurant, preference_id: p).first.destroy
+      end
+    end
+
+    #if item is NOT in event array, add it to event
+    @prefs.each do |p|
+      unless @restaurant.preferences.exists? (p)
+        @restaurant.preferences << Preference.find(p)
+      end
+    end
+    ################################################
+
+
+    ################################################
+    ##              Restrictions
+    ################################################
+    #get items from input and add to an array
+    @restrics = Array.new
+    unless params[:restrics].nil?
+      params[:restrics].each do |r|
+        @restrics << Restriction.find(r)
+      end
+    end
+
+    #if event item is NOT in array, remove it from event
+    @restaurant.restrictions.each do |r|
+      unless @restrics.include? (r)
+        RestaurantsRestrictions.where(restaurant_id: @restaurant, restriction_id: r).first.destroy
+      end
+    end
+
+    #if item is NOT in event array, add it to event
+    unless @restrics.nil?
+      @restrics.each do |p|
+        unless @restaurant.restrictions.exists? (p)
+          @restaurant.restrictions << Restriction.find(p)
+        end
+      end
+    end
+    ################################################
+
+
+    
 
     respond_to do |format|
       if @restaurant.save
@@ -43,6 +104,62 @@ class RestaurantsController < ApplicationController
   # PATCH/PUT /restaurants/1
   # PATCH/PUT /restaurants/1.json
   def update
+    ################################################
+    ##              Preferences
+    ################################################
+    #get items from input and add to an array
+    @prefs = Array.new
+    unless params[:prefs].nil?
+      params[:prefs].each do |p|
+        @prefs << Preference.find(p)
+      end
+    end
+
+    #if event item is NOT in array, remove it from event
+    @restaurant.preferences.each do |p|
+      unless @prefs.include? (p)
+        PreferencesRestaurants.where(restaurant_id: @restaurant, preference_id: p).first.destroy
+      end
+    end
+
+    #if item is NOT in event array, add it to event
+    @prefs.each do |p|
+      unless @restaurant.preferences.exists? (p)
+        @restaurant.preferences << Preference.find(p)
+      end
+    end
+    ################################################
+
+
+    ################################################
+    ##              Restrictions
+    ################################################
+    #get items from input and add to an array
+    @restrics = Array.new
+    unless params[:restrics].nil?
+      params[:restrics].each do |r|
+        @restrics << Restriction.find(r)
+      end
+    end
+
+    #if event item is NOT in array, remove it from event
+    @restaurant.restrictions.each do |r|
+      unless @restrics.include? (r)
+        RestaurantsRestrictions.where(restaurant_id: @restaurant, restriction_id: r).first.destroy
+      end
+    end
+
+    #if item is NOT in event array, add it to event
+    unless @restrics.nil?
+      @restrics.each do |p|
+        unless @restaurant.restrictions.exists? (p)
+          @restaurant.restrictions << Restriction.find(p)
+        end
+      end
+    end
+    ################################################
+
+    
     respond_to do |format|
       if @restaurant.update(restaurant_params)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }

@@ -11,12 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012013104) do
+ActiveRecord::Schema.define(version: 20141012122145) do
+
+  create_table "events", force: true do |t|
+    t.string   "name"
+    t.integer  "zip"
+    t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "preferences", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "preferences_restaurants", force: true do |t|
+    t.integer "restaurant_id"
+    t.integer "preference_id"
   end
 
   create_table "preferences_users", force: true do |t|
@@ -30,6 +43,11 @@ ActiveRecord::Schema.define(version: 20141012013104) do
     t.integer  "zip"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "restaurants_restrictions", force: true do |t|
+    t.integer "restaurant_id"
+    t.integer "restriction_id"
   end
 
   create_table "restrictions", force: true do |t|
