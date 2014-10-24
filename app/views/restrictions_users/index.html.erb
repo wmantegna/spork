@@ -1,0 +1,50 @@
+<h2>User Restrictions</h2>
+<%= @user.name %>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('.pref').click(function() {
+			
+			var id = $(this)[0].id;
+			console.log("id = " + id);
+			$('.chk[value="'+id+'"]')[0].checked = true;
+			$(this).css('backgroundColor', 'blue');
+			$(this).css('color', 'white');
+		});
+
+	});
+</script>
+
+<%= form_for @user do |f| %>
+
+	<table>
+		<tr>
+			<th style="width:100%; background-color: white; color: green; padding: 20px 0; border:1px solid black; font:2em; text-align:center;">
+				Choose Restrictions
+			</th>
+		</tr>
+		<tr>
+			<td>
+
+	        <% @restrictions.each do |p| %>
+	        	
+	        	<%= check_box_tag "restrics[]", p.id, false, class: "chk", style: "display:none" %>
+	        	<% # check_box_tag p.id, 1, @student.enrolled?(c), :onclick => remote_function(:url => save_student_path(@student), :with => "'course=#{c.id}&amp;show=' + this.checked", :method => :post) %>
+	          <div id="<%= p.id %>" class="col-xs-6 col-sm-6 pref" 
+		          style="border: 1px solid black; background-color: white; color: blue; padding: 50px 75px; text-align:center;" /><%= p.name %></div>
+
+	       <% end %>
+
+
+			</td>
+		</tr>
+		<tr>
+			<td style="width:100%">
+				<%= f.submit, controller: "users_restrictions", method: "update" %>
+
+			</td>
+		</tr>
+	</table>
+
+<% end %>

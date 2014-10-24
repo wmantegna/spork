@@ -2,6 +2,17 @@ class User < ActiveRecord::Base
 	has_and_belongs_to_many :preferences
 	has_and_belongs_to_many :restrictions
 
+  has_and_belongs_to_many :events
+
+
+  def restrics
+    Restriction.all.order(:name)
+  end
+
+  def has_pref(restric)
+    restrictions.include?(restric)
+  end
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth['provider']
@@ -11,5 +22,4 @@ class User < ActiveRecord::Base
       end
     end
   end
-
 end
