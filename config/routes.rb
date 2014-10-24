@@ -10,7 +10,6 @@ Rails.application.routes.draw do
     resources :restrictions_users
   end
   
-
 put '/tests/:id', to: "tests#update", as: "update_tests"
 get '/users/:id/restrictions', to: "users#userRestrics", as: "user_restrics"
 #get '/users/:id/restrictions', to: "users#userRestrics_update", as: "update_user_restrics"

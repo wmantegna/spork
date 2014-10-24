@@ -119,28 +119,28 @@ class UsersController < ApplicationController
     redirect_to "/users/#{@user.id}/cuisines"
   end
 
-  # def userPrefs
-  #   @user = User.find(params[:id])
-  #   @preferences = Preference.all
-  # end
+  def userPrefs
+    @user = User.find(params[:id])
+    @preferences = Preference.all
+  end
 
-  # def userPrefs_update
-  #   raise
-  #   @user = User.find(params[:id])
-  #   @prefs = params[:prefs]
+  def userPrefs_update
+    raise
+    @user = User.find(params[:id])
+    @prefs = params[:prefs]
 
-  #   #if item is NOT in event array, add it to event
-  #   unless @prefs.nil?
-  #     @prefs.each do |p|
-  #       unless @user.preferences.exists? (p)
-  #         @user.preferences << Preference.find(p)
-  #       end
-  #     end
-  #   end
+    #if item is NOT in event array, add it to event
+    unless @prefs.nil?
+      @prefs.each do |p|
+        unless @user.preferences.exists? (p)
+          @user.preferences << Preference.find(p)
+        end
+      end
+    end
 
-  #   #redirect_to
+    #redirect_to
 
-  # end
+  end
 
   def results
     @user = User.find(params[:id])
