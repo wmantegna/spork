@@ -1,0 +1,50 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('.pref').click(function() {
+			
+			var id = $(this)[0].id;
+			console.log("id = " + id);
+			$('.chk[value="'+id+'"]')[0].checked = true;
+			$(this).css('backgroundColor', 'blue');
+			$(this).css('color', 'white');
+		});
+
+	});
+</script>
+
+
+<%= form_for @restric do |f| %>
+
+	<table>
+		<tr>
+			<th class="headerBar">
+				Choose Restrictions
+			</th>
+		</tr>
+		<tr>
+			<td>
+					<%= hidden_field_tag :user_id, 	@user.id %>
+
+					<% counter = 1; %>
+	        <% @restrictions.each do |r| %>
+	        	
+	        	<%= check_box_tag "restrics[]", r.id, false, class: "chk", style: "display: none;" %>
+	          <div  id="<%= counter %>" class="col-xs-6 col-sm-6 choicePanel pref" />
+	            <%= r.name %>
+	          </div>
+
+	           <% counter += 1; %>
+	       <% end %>
+
+
+			</td>
+		</tr>
+		<tr>
+			<td style="width:100%">
+				<%= f.submit 'Add Restrictions', :class => "submitButton" %>
+			</td>
+		</tr>
+	</table>
+
+<% end %>

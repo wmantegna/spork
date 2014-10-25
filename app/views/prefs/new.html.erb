@@ -1,0 +1,47 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+
+
+		$('.restric').click(function() {	
+			var id = $(this)[0].id;
+			console.log("id = " + id);
+			$('.chk[value="'+id+'"]')[0].checked = true;
+			$(this).css('backgroundColor', 'blue');
+			$(this).css('color', 'white');
+		});
+
+	});
+</script>
+
+<%= form_for @pref do |f| %>
+
+	<table>
+		<tr>
+			<th class="headerBar">
+				Choose Preferences:
+			</th>
+		</tr>
+		<tr>
+			<td>
+				<%= hidden_field_tag :user_id, 	@user.id %>
+
+				<% counter = 1; %>
+        <% @preferences.each do |p| %>
+        	
+        	<%= check_box_tag "prefs[]", p.id, false, class: "chk", style: "display:none;" %>
+          <div id="<%= counter %>" class="col-xs-6 col-sm-6 choicePanel restric" />
+            <%= p.name %>
+          </div>
+
+          <% counter += 1; %>
+       <% end %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.submit 'Where We Eatin\'?', :class => "submitButton" %>
+			</td>
+		</tr>
+	</table>
+
+<% end %>
