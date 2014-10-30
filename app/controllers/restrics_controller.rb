@@ -5,7 +5,7 @@ class RestricsController < ApplicationController
     @restric = Restric.new
 
     @user = User.find(params[:user_id])
-    @restrictions = Restriction.all
+    @restrictions = Restriction.order(:name).all
   end
 
   # POST /restrics

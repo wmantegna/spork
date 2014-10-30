@@ -3,7 +3,7 @@ class PrefsController < ApplicationController
   	@pref = Pref.new
 
   	@user = User.find(params[:user_id])
-  	@preferences = Preference.all
+  	@preferences = Preference.order(:name).all
   end
 
   def create
