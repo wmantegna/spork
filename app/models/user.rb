@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :restrics
   has_many :prefs
 
+  has_many :events,  class_name: 'Event', foreign_key: 'host_id'
+
   def restrics
     Restriction.all.order(:name)
   end
