@@ -13,3 +13,30 @@
  *= require_tree .
  *= require_self
  */
+
+ .submitButton {
+	width:100%; 
+	min-height:50px; 
+	background-color:green; 
+	border:1px solid black; 
+	color:white; 
+	font-size:2em;
+}
+
+.headerBar {
+	width:100%;
+	background-color: white;
+	color: green;
+	padding: 20px 0;
+	border:1px solid black;
+	font:2em;
+	text-align:center;
+}
+
+.choicePanel {
+	border: 1px solid black;
+	background-color: white;
+	color: blue;
+	padding:30px;
+	text-align:center;
+}
