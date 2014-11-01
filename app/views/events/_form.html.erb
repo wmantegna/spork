@@ -1,4 +1,5 @@
 <%= form_for(@event) do |f| %>
+
   <% if @event.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -11,51 +12,40 @@
     </div>
   <% end %>
 
-  <table class="table">
-    <tr>
-      <th>Data</th>
-      <th>Users</th>
-    </tr>
-    <tr>
-      <td>
 
-        <div class="field">
-          <%= f.label :name %><br>
-          <%= f.text_field :name %>
-        </div>
-        <div class="field">
-          <%= f.label :zip %><br>
-          <%= f.number_field :zip %>
-        </div>
-        <div class="field">
-          <%= f.label :restaurant %><br />
-          <%= f.collection_select :restaurant_id, Restaurant.order(:name),:id,:name, include_blank: true %>
-        </div>
-      </td>
-      <td>
+  <%= f.text_field :name, placeholder: "Event Name", class: "txtInput" %><br />
+  <%= f.number_field :zip, placeholder: "zipcode", class: "txtInput" %><br />
 
+  <!-- <div class="field">
+    <%= f.label :restaurant %><br />
+    <%= f.collection_select :restaurant_id, Restaurant.order(:name),:id,:name, include_blank: true %>
+  </div> -->
 
+<table class="table">
+  <tr>
+    <th>Invite Friends!</th>
+  </tr>
+  <tr>
+    <td>
 
-        <% @users.each do |u| %>
+      <% @users.each do |u| %>
 
-        <% unless u.nil? %>
-          <% if @event.users.exists? (u) %>
-            <%= check_box_tag "users[]", u.id, true %>
-            <% else %>
-              <%= check_box_tag "users[]", u.id, false %>
-            <% end %>
+      <% unless u.nil? %>
+        <% if @event.users.exists? (u) %>
+          <%= check_box_tag "users[]", u.id, true %>
+          <% else %>
+            <%= check_box_tag "users[]", u.id, false %>
           <% end %>
-
-          <%= u.name %>
-          <br />
         <% end %>
 
-      </td>
-    </tr>
-  </table>
-  
+        <%= u.name %>
+        <br />
+      <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    </td>
+  </tr>
+</table>
+
+  <%= f.submit 'Create Event', class: "submitButton" %>
+
 <% end %>

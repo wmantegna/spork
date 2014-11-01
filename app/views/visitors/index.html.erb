@@ -1,18 +1,12 @@
-<style type="text/css">
-	div {
-		width:100%;
-		max-width:700px;
-		margin:0 auto;
-	}
-</style>
+<% unless user_signed_in? %>
 
-<div class="tbl">
+	<%= image_tag "logo2.png", alt:"Spoon Meets Fork", class: "img-responsive", style: "max-width:600px; max-height:50%" %>
+	<%= button_to 'Sign in', signin_path, method: :get, class: "submitButton" %>
 
-	<% unless user_signed_in? %>
-		<%= image_tag "logo2.png", alt:"Spoon Meets Fork", class: "img-responsive", style: "max-width:600px; max-height:50%" %>
-		<%= button_to 'Sign in', signin_path, method: :get, style: "width:100%; min-height:50px; background-color:green; border:1px solid black; color:white; font-size:2em;" %>
+<% else %>
 
-	<% else %>
-		<%= button_to 'Create Event', new_event_path, method: :get, style: "width:100%; min-height:50px; background-color:green; border:1px solid black; color:white; font-size:2em;" %>		
-	<% end %>
-</div>
+
+
+	<%= button_to 'Create Event', new_event_path, method: :get, class: "submitButton" %>		
+
+<% end %>
