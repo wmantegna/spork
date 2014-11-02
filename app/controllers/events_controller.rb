@@ -37,6 +37,7 @@ class EventsController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @event.errors, status: :unprocessable_entity }
+        @users = User.all
       end
     end
   end

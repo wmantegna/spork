@@ -15,7 +15,11 @@
       <tr>
         <td><%= event.name %></td>
         <td><%= event.zip %></td>
-        <td><%= event.restaurant.name %></td>
+        <td>
+          <% unless event.restaurant.nil? %>
+            <%= event.restaurant.name %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>

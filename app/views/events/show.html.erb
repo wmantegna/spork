@@ -10,10 +10,12 @@
   <%= @event.zip %>
 </p>
 
-<p>
-  <strong>Restaurant:</strong>
-  <%= @event.restaurant.name %>
-</p>
+<% unless @event.restaurant.nil? %>
+	<p>
+	  <strong>Restaurant:</strong>
+	  <%= @event.restaurant.name %>
+	</p>
+<% end %>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
