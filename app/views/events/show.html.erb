@@ -1,21 +1,62 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<div class="headerBar">
   <%= @event.name %>
-</p>
+</div>
 
-<p>
-  <strong>Zip:</strong>
-  <%= @event.zip %>
-</p>
+<table class="table table-bordered">
+	<tr>
+		<td>
+  		<strong>Host:</strong>
+  		<%= @event.host.name %>
+  	</td>
+  	<td>
+  		<strong>Zip:</strong>
+  		<%= @event.zip %>
+  	</td>
+  </tr>
+  <tr>
+  	<td colspan="2">
 
-<% unless @event.restaurant.nil? %>
-	<p>
-	  <strong>Restaurant:</strong>
-	  <%= @event.restaurant.name %>
-	</p>
-<% end %>
+			<strong>Participants:</strong>
+			<% unless @event.users.nil? %>
+				<% userCount = @event.users.size - 1 %>
+
+				<% @event.users.each_with_index do |u, i| %>
+						<% if i == userCount %>
+					  	<%= u.name %>
+					  <% else %>
+					  	<%= u.name %>,
+					  <% end %>
+				<% end %>
+			<% end %>
+
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<strong>Group Preferences:</strong>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<strong>Group Restrictions:</strong>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+
+			<% unless @event.restaurant.nil? %>
+				<p>
+				  <strong>Restaurant:</strong>
+				  <%= @event.restaurant.name %>
+				</p>
+			<% end %>
+
+		</td>
+	</tr>
+</table>
+
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
