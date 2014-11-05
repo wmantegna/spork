@@ -22,19 +22,25 @@
 	  </thead>
 
 	  <tbody>
-	  	<% unless @upcomingEvents.empty? %>
-		    <% @upcomingEvents.each do |event| %>
-		      <tr>
-		        <td><%= link_to event.name, event_path(event) %></td>
-		        <td><%= event.date %></td>
-		        <td><%= event.host.name %></td>
-		      </tr>
-		    <% end %>
+	  	<% unless @upcomingEvents.nil? %>
+	  		<% unless @upcomingEvents.empty? %>
+			    <% @upcomingEvents.each do |event| %>
+			      <tr>
+			        <td><%= link_to event.name, event_path(event) %></td>
+			        <td><%= event.date %></td>
+			        <td><%= event.host.name %></td>
+			      </tr>
+			    <% end %>
+			  <% else %>
+			  	<tr>
+			  		<th colspan="3">Make a new event!</th>
+			  	</tr>
+			  <% end %>
 		  <% else %>
 		  	<tr>
 		  		<th colspan="3">Make a new event!</th>
 		  	</tr>
-		  <% end %>
+			<% end %>
 	  </tbody>
 	</table>
 
@@ -48,15 +54,21 @@
 	  </thead>
 
 	  <tbody>
-	  	<% unless @pastEvents.empty? %>
-		    <% @pastEvents.each do |event| %>
-		      <tr>
-		        <td><%= event.name %></td>
-		        <td><%= event.date %></td>
-		        <td><%= event.host.name %></td>
-		      </tr>
-		    <% end %>
-	  	<% else %>
+	  	<% unless @pastEvents.nil? %>
+	  		<% unless @pastEvents.empty? %>
+			    <% @pastEvents.each do |event| %>
+			      <tr>
+			        <td><%= event.name %></td>
+			        <td><%= event.date %></td>
+			        <td><%= event.host.name %></td>
+			      </tr>
+			    <% end %>
+		  	<% else %>
+			   	<tr>
+			  		<th colspan="3"></th>
+			  	</tr>
+		  	<% end %>
+		  <% else %>
 		   	<tr>
 		  		<th colspan="3"></th>
 		  	</tr>
