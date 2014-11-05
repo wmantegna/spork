@@ -6,13 +6,19 @@
 
 <table class="table table-bordered">
 	<tr>
-		<td>
-  		<strong>Host:</strong>
-  		<%= @event.host.name %>
-  	</td>
-  	<td>
+  	<td style="width:50%">
   		<strong>Zip:</strong>
   		<%= @event.zip %>
+  	</td>
+  	<td style="width:50%">
+  		<strong>Date:</strong>
+  		<%= @event.date %>
+  	</td>
+  </tr>
+ 	<tr>
+  <td colspan="2">
+  		<strong>Host:</strong>
+  		<%= @event.host.name %>
   	</td>
   </tr>
   <tr>
@@ -45,7 +51,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-
+			<b>Restaurants:</b>
 			<% unless @event.restaurant.nil? %>
 				<p>
 				  <strong>Restaurant:</strong>

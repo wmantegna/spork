@@ -19,6 +19,10 @@
   <div class="field" style="margin:0;">
     <%= f.number_field :zip, placeholder: "zipcode", class: "txtInput" %>
   </div>
+  <div class="field" style="margin:0;">
+    <%= f.date_field :date, :value => Time.now.strftime('%Y-%m-%d'), class: "txtInput" %>
+  </div>
+  
 
   <!-- <div class="field">
     <%= f.label :restaurant %><br />
@@ -50,6 +54,6 @@
   </tr>
 </table>
 
-  <%= f.submit 'Create Event', class: "submitButton" %>
+  <%= f.submit @buttonName, class: "submitButton" %>
 
 <% end %>

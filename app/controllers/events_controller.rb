@@ -17,11 +17,15 @@ class EventsController < ApplicationController
     @event = Event.new
     @restaurants = Restaurant.all
     @users = User.all
+
+    @buttonName = "Create Event"
   end
 
   # GET /events/1/edit
   def edit
     @users = User.all
+
+    @buttonName = "Update Event"
   end
 
 
@@ -30,6 +34,13 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.host_id = current_user.id
+
+    unless params[:users].nil?
+      params[:users].each do |u|
+        @event.users << User.find(u)
+      end
+    end
+
 
     respond_to do |format|
       if @event.save
@@ -52,7 +63,7 @@ class EventsController < ApplicationController
     ################################################
     ##              Preferences
     ################################################
-    #get items from input and add to an array
+    # get items from input and add to an array
     @users = Array.new
     unless params[:users].nil?
       params[:users].each do |u|
@@ -60,14 +71,14 @@ class EventsController < ApplicationController
       end
     end
 
-    #if event item is NOT in array, remove it from event
+    # remove univited users
     @event.users.each do |u|
-      unless @prefs.include? (u)
+      unless @users.include? (u)
         EventsUsers.where(event_id: @event, user_id: u).first.destroy
       end
     end
 
-    #if item is NOT in event array, add it to event
+    # add new users
     @users.each do |u|
       unless @event.users.exists? (u)
         @event.users << User.find(u)
@@ -90,6 +101,8 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
+    @event.users.destroy
+
     @event.destroy
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
@@ -105,6 +118,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :zip, :restaurant_id)
+      params.require(:event).permit(:name, :zip, :restaurant_id, :date)
     end
 end
