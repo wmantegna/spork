@@ -5,13 +5,14 @@
 
 <% else %>
 
-<style>
-.myTable th, .myTable td {
-	text-align: center;
-}
-</style>
+	<style>
+		.myTable th, .myTable td {
+			text-align: center;
+		}
+	</style>
 
-<h2>Spoon Meets Fork</h2>
+	<h2>Spoon Meets Fork</h2>
+
 	<table class="table myTable">
 	  <thead>
 	    <tr>
@@ -76,6 +77,8 @@
 	  </tbody>
 	</table>
 
-	<%= button_to 'Create Event', new_event_path, method: :get, class: "submitButton" %>		
+	<%= button_to 'Update Restrictions & Preferences', new_user_restric_path(current_user), method: :get, class: "submitButton" %>
+	<br />
+	<%= button_to 'Create Event', new_event_path, method: :get, class: "submitButton" %>
 
 <% end %>
