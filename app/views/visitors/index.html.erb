@@ -5,7 +5,64 @@
 
 <% else %>
 
+<style>
+.myTable th, .myTable td {
+	text-align: center;
+}
+</style>
 
+<h2>Spoon Meets Fork</h2>
+	<table class="table myTable">
+	  <thead>
+	    <tr>
+	    	<th>Upcoming</th>
+	    	<th>Date</th>
+	    	<th>Host</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	  	<% unless @upcomingEvents.empty? %>
+		    <% @upcomingEvents.each do |event| %>
+		      <tr>
+		        <td><%= link_to event.name, event_path(event) %></td>
+		        <td><%= event.date %></td>
+		        <td><%= event.host.name %></td>
+		      </tr>
+		    <% end %>
+		  <% else %>
+		  	<tr>
+		  		<th colspan="3">Make a new event!</th>
+		  	</tr>
+		  <% end %>
+	  </tbody>
+	</table>
+
+	<table class="table myTable">
+	  <thead>
+	    <tr>
+	    	<th>Past</th>
+	    	<th>Date</th>
+	    	<th>Host</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	  	<% unless @pastEvents.empty? %>
+		    <% @pastEvents.each do |event| %>
+		      <tr>
+		        <td><%= event.name %></td>
+		        <td><%= event.date %></td>
+		        <td><%= event.host.name %></td>
+		      </tr>
+		    <% end %>
+	  	<% else %>
+		   	<tr>
+		  		<th colspan="3"></th>
+		  	</tr>
+	  	<% end %>
+	  </tbody>
+	</table>
 
 	<%= button_to 'Create Event', new_event_path, method: :get, class: "submitButton" %>		
 
