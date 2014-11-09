@@ -16,6 +16,14 @@ class User < ActiveRecord::Base
     restrictions.include?(restric)
   end
 
+  def upcomingEvents
+    events.where("date >= #{Date.today}").order("date DESC")
+  end
+
+  def pastEvents
+    events.where("date < #{Date.today}").order("date DESC")
+  end
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth['provider']
