@@ -2,12 +2,11 @@ class User < ActiveRecord::Base
 	has_and_belongs_to_many :preferences
 	has_and_belongs_to_many :restrictions
 
-  has_and_belongs_to_many :events
-
   has_many :restrics
   has_many :prefs
 
   has_many :events,  class_name: 'Event', foreign_key: 'host_id'
+  has_and_belongs_to_many :events
 
   def restrics
     Restriction.all.order(:name)

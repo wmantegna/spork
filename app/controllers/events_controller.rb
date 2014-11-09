@@ -16,15 +16,14 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @restaurants = Restaurant.all
-    @users = User.all
+    @users = User.all.where.not(id: current_user)
 
     @buttonName = "Create Event"
   end
 
   # GET /events/1/edit
   def edit
-    @users = User.all
-
+    @users = User.all.where.not(id: current_user)
     @buttonName = "Update Event"
   end
 
@@ -35,15 +34,19 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.host_id = current_user.id
 
-    unless params[:users].nil?
-      params[:users].each do |u|
-        @event.users << User.find(u)
-      end
-    end
-
 
     respond_to do |format|
       if @event.save
+
+        #@event.users << User.find(@event.host_id)
+        params[:users] = params[:users] + [current_user.id]
+
+        unless params[:users].nil?
+          params[:users].each do |u|
+            @event.users << User.find(u)
+        end
+      end
+
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
