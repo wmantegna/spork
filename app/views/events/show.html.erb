@@ -18,7 +18,7 @@
  	<tr>
   <td colspan="2">
   		<strong>Host:</strong>
-  		<% # @event.host.name %>
+  		<%= @event.host.name %>
   	</td>
   </tr>
   <tr>
@@ -42,11 +42,13 @@
 	<tr>
 		<td colspan="2">
 			<strong>Group Preferences:</strong>
+			<%= @event.eventPrefs %>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2">
 			<strong>Group Restrictions:</strong>
+			<%= @event.eventRestrics %>
 		</td>
 	</tr>
 	<tr>

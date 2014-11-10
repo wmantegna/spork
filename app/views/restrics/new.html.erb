@@ -4,10 +4,17 @@
 		$('.pref').click(function() {
 			
 			var id = $(this)[0].id;
-			console.log("id = " + id);
-			$('.chk[value="'+id+'"]')[0].checked = true;
-			$(this).css('backgroundColor', 'blue');
-			$(this).css('color', 'white');
+			var chk = $('.chk')[id-1];
+
+			if (chk.checked == true) {
+				chk.checked = false;
+				$(this).css('backgroundColor', 'white');
+				$(this).css('color', 'blue');
+			} else {
+				chk.checked = true;
+				$(this).css('backgroundColor', 'blue');
+				$(this).css('color', 'white');
+			}
 		});
 
 	});
@@ -30,13 +37,12 @@
 	        <% @restrictions.each do |r| %>
 	        	
 	        	<%= check_box_tag "restrics[]", r.id, false, class: "chk", style: "display: none;" %>
-	          <div  id="<%= counter %>" class="col-xs-6 col-sm-6 choicePanel pref" />
+	          <div id="<%= counter %>" class="col-xs-6 col-sm-6 choicePanel pref" />
 	            <%= r.name %>
 	          </div>
 
 	           <% counter += 1; %>
 	       <% end %>
-
 
 			</td>
 		</tr>

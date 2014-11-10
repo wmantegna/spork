@@ -1,13 +1,20 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-
 		$('.restric').click(function() {	
+			
 			var id = $(this)[0].id;
-			console.log("id = " + id);
-			$('.chk[value="'+id+'"]')[0].checked = true;
-			$(this).css('backgroundColor', 'blue');
-			$(this).css('color', 'white');
+			var chk = $('.chk')[id-1];
+
+			if (chk.checked == true) {
+				chk.checked = false;
+				$(this).css('backgroundColor', 'white');
+				$(this).css('color', 'blue');
+			} else {
+				chk.checked = true;
+				$(this).css('backgroundColor', 'blue');
+				$(this).css('color', 'white');
+			}
 		});
 
 	});
