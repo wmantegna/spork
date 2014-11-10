@@ -12,28 +12,36 @@ class Event < ActiveRecord::Base
 	# returns a hash of UsersRestrictions data
 	# from users attending this event
 	def eventRestrics
-		@userRestrics = Array.new(Restriction.all.count, 0)
+		@rCount_h = Hash.new
 
 		# Get user data
 		self.users.each do |u|
 
 			u.restrictions.each do |r|
-				@num = @userRestrics[r.id-1]
-				@userRestrics[r.id-1] = ++@num
-			end
+				
+				@num = @rCount_h[r.id]
 
+				if @num.nil? 
+					@num = 1 
+				else
+					@num += 1
+				end
+				
+				@rCount_h[r.id] = @num
+			end
 		end
-		
+
 		# order each outcome by value and sort
 		@userCount = self.users.count
 		@restrics_h = Hash.new
 
-		@userRestrics.each do |r|
-			unless r == 0
-				@restric = Restriction.find(r)
-				@value = r = r / @userCount
-
-				@restrics_h[@restric.name] = @value
+		@rCount_h.each do |r|
+			@key = r[0]
+			@val = r[1]
+			unless @val == 0
+				@restric = Restriction.find(@key)
+				@weighted_val = (@val / @userCount.to_f).round(4)
+				@restrics_h[@restric.name] = @weighted_val
 			end
 		end
 
@@ -45,29 +53,35 @@ class Event < ActiveRecord::Base
 	# returns a hash of UsersPreferences data
 	# from users attending this event
 	def eventPrefs
-		@userPrefs = Array.new(Preference.all.count, 0)
+		@pCount_h = Hash.new
 
 		# Get user data
 		self.users.each do |u|
 
 			u.preferences.each do |p|
-				@num = @userPrefs[p.id-1]
-				@userPrefs[p.id-1] = ++@num
-			end
+				@num = @pCount_h[p.id]
 
+				if @num.nil? 
+					@num = 1 
+				else
+					@num += 1
+				end
+
+				@pCount_h[p.id] = @num
+			end
 		end
 
 		# order each outcome by value and sort
 		@userCount = self.users.count
 		@prefs_h = Hash.new
 
-
-		@userPrefs.each do |p|
-			unless p == 0
-				@pref = Preference.find(p)
-				@value = p / @userCount
-
-				@prefs_h[@pref.name] = p / @userCount
+		@pCount_h.each do |p|
+			@key = p[0]
+			@val = p[1]
+			unless @val == 0
+				@pref = Restriction.find(@key)
+				@weighted_val = (@val / @userCount.to_f).round(4)
+				@prefs_h[@pref.name] = @weighted_val
 			end
 		end
 
