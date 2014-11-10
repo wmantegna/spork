@@ -9,7 +9,8 @@ class Event < ActiveRecord::Base
 
 
 	#
-	# returns a hash of UsersRestrictions data
+	# returns {prefID => count}
+	# a hash of UsersRestrictions data
 	# from users attending this event
 	def eventRestrics
 		@rCount_h = Hash.new
@@ -31,6 +32,16 @@ class Event < ActiveRecord::Base
 			end
 		end
 
+		@rCount_h.sort
+	end
+
+	#
+	# returns {prefName => weighted_count}
+	# a hash of UsersRestrictions data
+	# from users attending this event
+	def eventRestrics_weighted
+		@rCount_h = self.eventRestrics
+
 		# order each outcome by value and sort
 		@userCount = self.users.count
 		@restrics_h = Hash.new
@@ -50,7 +61,8 @@ class Event < ActiveRecord::Base
 
 
 	#
-	# returns a hash of UsersPreferences data
+	# returns {restricID => count}
+	# a hash of UsersPreferences data
 	# from users attending this event
 	def eventPrefs
 		@pCount_h = Hash.new
@@ -70,6 +82,16 @@ class Event < ActiveRecord::Base
 				@pCount_h[p.id] = @num
 			end
 		end
+
+		@pCount_h.sort
+	end
+
+	#
+	# returns {restricName => weighted_count}
+	# a hash of UsersPreferences data
+	# from users attending this event
+	def eventPrefs_weighted
+		@pCount_h = self.eventPrefs
 
 		# order each outcome by value and sort
 		@userCount = self.users.count

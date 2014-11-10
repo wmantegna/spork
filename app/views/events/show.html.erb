@@ -41,14 +41,21 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<strong>Group Preferences:</strong>
-			<%= @event.eventPrefs %>
+			<strong>Group Preferences</strong>
+			<ul>
+				<li><b>counts:</b> <%= @event.eventPrefs %></li>
+				<li><b>weighted:</b> <%= @event.eventPrefs_weighted %></li>
+			</ul>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<strong>Group Restrictions:</strong>
-			<%= @event.eventRestrics %>
+			<strong>Group Restrictions</strong>
+			<ul>
+				<li><b>counts:</b> <%= @event.eventRestrics %></li>
+				<li><b>weighted:</b> <%= @event.eventRestrics_weighted %></li>
+			</ul>
+			
 		</td>
 	</tr>
 	<tr>
