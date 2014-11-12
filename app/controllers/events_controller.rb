@@ -38,9 +38,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
 
-        #@event.users << User.find(@event.host_id)
-        params[:users] = params[:users] + [current_user.id]
-
+        @event.users << User.find(@event.host_id)
         unless params[:users].nil?
           params[:users].each do |u|
             @event.users << User.find(u)
@@ -82,6 +80,7 @@ class EventsController < ApplicationController
     end
 
     # add new users
+    @users << User.find(@event.host_id) # ensure host is always a user
     @users.each do |u|
       unless @event.users.exists? (u)
         @event.users << User.find(u)

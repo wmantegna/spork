@@ -17,11 +17,11 @@ class User < ActiveRecord::Base
   end
 
   def upcomingEvents
-    events.where("date >= #{Date.today}").order("date DESC")
+    events.where("date >= ?", Date.today).order("date DESC")
   end
 
   def pastEvents
-    events.where("date < #{Date.today}").order("date DESC")
+    events.where("date < ?", Date.today).order("date DESC")
   end
 
   def self.create_with_omniauth(auth)
