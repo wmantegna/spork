@@ -54,10 +54,14 @@ class PreferencesController < ApplicationController
   # DELETE /preferences/1
   # DELETE /preferences/1.json
   def destroy
-    @preference.destroy
-    respond_to do |format|
-      format.html { redirect_to preferences_url, notice: 'Preference was successfully destroyed.' }
-      format.json { head :no_content }
+    if @preference.users.empty? && @preference.restaurants.empty?
+      @preference.destroy
+      respond_to do |format|
+        format.html { redirect_to preferences_url, notice: 'Preference was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to preferences_path, :flash => { :error => "This preference is currently in use!" }
     end
   end
 

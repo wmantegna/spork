@@ -54,11 +54,17 @@ class RestrictionsController < ApplicationController
   # DELETE /restrictions/1
   # DELETE /restrictions/1.json
   def destroy
-    @restriction.destroy
-    respond_to do |format|
-      format.html { redirect_to restrictions_url, notice: 'Restriction was successfully destroyed.' }
-      format.json { head :no_content }
+
+    if @restriction.users.empty? && @restriction.restaurants.empty?
+      @restriction.destroy
+      respond_to do |format|
+        format.html { redirect_to restrictions_url, notice: 'Restriction was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to restrictions_path, :flash => { :error => "This restriction is currently in use!" }
     end
+
   end
 
   private
