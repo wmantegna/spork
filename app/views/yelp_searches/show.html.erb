@@ -1,0 +1,144 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Term:</strong>
+  <%= @yelp_search.term %>
+</p>
+
+<p>
+  <strong>Limit:</strong>
+  <%= @yelp_search.limit %>
+</p>
+
+<p>
+  <strong>Offset:</strong>
+  <%= @yelp_search.offset %>
+</p>
+
+<p>
+  <strong>Sort:</strong>
+  <%= @yelp_search.sort %>
+</p>
+
+<p>
+  <strong>Category filter:</strong>
+  <%= @yelp_search.category_filter %>
+</p>
+
+<p>
+  <strong>Radius filter:</strong>
+  <%= @yelp_search.radius_filter %>
+</p>
+
+<p>
+  <strong>Deals filter:</strong>
+  <%= @yelp_search.deals_filter %>
+</p>
+
+<%= link_to 'Edit', edit_yelp_search_path(@yelp_search) %> |
+<%= link_to 'Back', yelp_searches_path %>
+
+<style>
+
+.yelpTable { border-collapse: collapse; }
+.yelpTable th { text-align: center; }
+.yelpTable th, .yelpTable td {
+  border: 1px solid black;
+  padding: 2px 5px;
+  max-width:100px;
+  overflow-x: scroll;
+}
+.yelpTable td.wide {
+  min-width: 350px;
+  width: 350px;
+  max-width: 350px;
+  overflow-x: none;
+}
+
+.yelpTable td.med {
+  min-width: 200px;
+  width: 200px;
+  max-width: 200px;
+  overflow-x: none;
+}
+
+</style>
+
+<h2>Yelp Results</h2>
+<table class="yelpTable">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>categories</th>
+
+      <th>review_count</th>
+      <th>location</th>
+      
+      <th>phone</th>
+      <th>url</th>
+
+      <th>snippet_text</th>
+
+      <th>rating</th>
+
+      <th>is_claimed</th>
+      <th>mobile_url</th>
+
+      <th>image_url</th>
+      <th>snippet_image_url</th>
+
+      <th>id</th>
+      <th>is_closed</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @businesses.each do |b| %>
+      <tr>
+
+        <td><%= b["name"] %></td>
+        <td><%= b["categories"] %></td>
+        
+        <td><%= b["review_count"] %></td>
+        <td class="wide">
+          <b>City:</b> <%= b["location"]["city"] %><br />
+          <b>display_address:</b> <%= b["location"]["display_address"] %><br />
+          <b>neighborhoods:</b> <%= b["location"]["neighborhoods"] %><br />
+          <b>country_code:</b> <%= b["location"]["country_code"] %><br />
+          <b>address:</b> <%= b["location"]["address"] %><br />
+          <b>state_code:</b> <%= b["location"]["state_code"] %><br />
+        </td>
+
+        <td>
+          <%= b["phone"] %>
+          <br /><br/ >
+          <%= b["display_phone"] %>
+        </td>
+        <td><%= b["url"] %></td>
+
+        <td class="wide"><%= b["snippet_text"] %></td>
+
+        <td class="med">
+          <%= b["rating"] %><br />
+          <%= image_tag b["rating_img_url"] %><br />
+          <%= image_tag b["rating_img_url_small"] %><br />
+          <%= image_tag b["rating_img_url_large"] %>
+        </td>
+
+        <td><%= b["is_claimed"] %></td>
+        <td><%= b["mobile_url"] %></td>
+        
+        <td><%= image_tag b["image_url"] %></td>
+        <td><%= image_tag b["snippet_image_url"] %></td>
+        
+        <td><%= b["id"] %></td>
+        <td><%= b["is_closed"] %></td>
+        
+
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>

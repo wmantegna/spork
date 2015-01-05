@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105003207) do
+ActiveRecord::Schema.define(version: 20150101185228) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -86,6 +86,18 @@ ActiveRecord::Schema.define(version: 20141105003207) do
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "yelp_searches", force: true do |t|
+    t.string   "term"
+    t.integer  "limit"
+    t.integer  "offset"
+    t.integer  "sort"
+    t.string   "category_filter"
+    t.integer  "radius_filter"
+    t.boolean  "deals_filter"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

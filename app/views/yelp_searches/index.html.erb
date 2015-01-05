@@ -1,0 +1,47 @@
+<h1>Listing yelp_searches</h1>
+
+<style>
+
+  .indexTable { border-collapse: collapse; }
+  .indexTable th, .indexTable td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+
+</style>
+
+<table class="indexTable">
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Limit</th>
+      <th>Offset</th>
+      <th>Sort</th>
+      <th>Category filter</th>
+      <th>Radius filter</th>
+      <th>Deals filter</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @yelp_searches.each do |yelp_search| %>
+      <tr>
+        <td><%= yelp_search.term %></td>
+        <td><%= yelp_search.limit %></td>
+        <td><%= yelp_search.offset %></td>
+        <td><%= yelp_search.sort %></td>
+        <td><%= yelp_search.category_filter %></td>
+        <td><%= yelp_search.radius_filter %></td>
+        <td><%= yelp_search.deals_filter %></td>
+        <td><%= link_to 'Show', yelp_search %></td>
+        <td><%= link_to 'Edit', edit_yelp_search_path(yelp_search) %></td>
+        <td><%= link_to 'Destroy', yelp_search, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Yelp search', new_yelp_search_path %>

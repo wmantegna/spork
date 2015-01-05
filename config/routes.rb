@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :yelp_searches
+
   resources :prefs, only: [:new, :create]
   resources :restrics, only: [:new, :create]
 
