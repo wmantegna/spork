@@ -62,17 +62,21 @@ class Event < ActiveRecord::Base
 	def topRestrics
 		@weighted = self.eventRestrics_weighted
 		
-		@largestVal = @weighted.first[1]
-    @restrics = ""
-    
-    @weighted.each do |key, val|
-      if val == @largestVal
-        @restrics += key + ","
-      else
-        break
-      end
-    end
-    @topRestrics = @restrics[0, @restrics.length-1]
+		unless @weighted.empty?
+			@largestVal = @weighted.first[1]
+	    @restrics = ""
+	    
+	    @weighted.each do |key, val|
+	      if val == @largestVal
+	        @restrics += key + ","
+	      else
+	        break
+	      end
+	    end
+	    @topRestrics = @restrics[0, @restrics.length-1]
+	  else
+	  	@topRestrics = ""
+	  end	
 	end
 
 
@@ -99,7 +103,6 @@ class Event < ActiveRecord::Base
 			end
 		end
 		
-		#raise
 		@pCount_h.sort.reverse
 	end
 
@@ -130,16 +133,20 @@ class Event < ActiveRecord::Base
 	def topPrefs
 		@weighted = self.eventPrefs_weighted
 		
-		@largestVal = @weighted.first[1]
-    @prefs = ""
+		unless @weighted.empty?
+			@largestVal = @weighted.first[1]
+	    @prefs = ""
 
-    @weighted.each do |key, val|
-      if val == @largestVal
-        @prefs += key + ","
-      else
-        break
-      end
-    end
-    @topPrefs = @prefs[0, @prefs.length-1]
+	    @weighted.each do |key, val|
+	      if val == @largestVal
+	        @prefs += key + ","
+	      else
+	        break
+	      end
+	    end
+	    @topPrefs = @prefs[0, @prefs.length-1]
+	  else
+	  	@topPrefs = ""
+	  end
 	end
 end
