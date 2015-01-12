@@ -45,24 +45,31 @@ class Event < ActiveRecord::Base
 		# order each outcome by value and sort
 		@userCount = self.users.count
 		@restrics_h = Hash.new
+		
+		unless @rCount_h.nil? || @rCount_h.empty?
+		
+			@rCount_h.each do |r|
+				@key = r[0]
+				@val = r[1]
 
-		@rCount_h.each do |r|
-			@key = r[0]
-			@val = r[1]
-			unless @val == 0
-				@restric = Restriction.find(@key)
-				@weighted_val = (@val / @userCount.to_f).round(4)
-				@restrics_h[@restric.name] = @weighted_val
+				unless @val == 0
+					@restric = Restriction.find(@key)
+					@weighted_val = (@val / @userCount.to_f).round(4)
+					@restrics_h[@restric.name] = @weighted_val
+				end
 			end
-		end
 
-		@restrics_h.sort_by{|key, value| value}.reverse
+			@restrics_h.sort_by{|key, value| value}.reverse
+		end
 	end
 
+#
+	# returns a list of all restrictions having 
+	# the same weighted value for an event
 	def topRestrics
 		@weighted = self.eventRestrics_weighted
 		
-		unless @weighted.empty?
+		unless @weighted.nil? || @weighted.empty?
 			@largestVal = @weighted.first[1]
 	    @restrics = ""
 	    
@@ -76,7 +83,7 @@ class Event < ActiveRecord::Base
 	    @topRestrics = @restrics[0, @restrics.length-1]
 	  else
 	  	@topRestrics = ""
-	  end	
+	  end
 	end
 
 
@@ -116,24 +123,31 @@ class Event < ActiveRecord::Base
 		# order each outcome by value and sort
 		@userCount = self.users.count
 		@prefs_h = Hash.new
-
-		@pCount_h.each do |p|
-			@key = p[0]
-			@val = p[1]
-			unless @val == 0
-				@pref = Restriction.find(@key)
-				@weighted_val = (@val / @userCount.to_f).round(4)
-				@prefs_h[@pref.name] = @weighted_val
+		
+		unless @pCount_h.nil? || @pCount_h.empty?
+			
+			@pCount_h.each do |p|
+				@key = p[0]
+				@val = p[1]
+			
+				unless @val == 0
+					@pref = Restriction.find(@key)
+					@weighted_val = (@val / @userCount.to_f).round(4)
+					@prefs_h[@pref.name] = @weighted_val
+				end
 			end
-		end
 
-		@prefs_h.sort_by{|key, value| value}.reverse
+			@prefs_h.sort_by{|key, value| value}.reverse
+		end
 	end
 
+	#
+	# returns a list of all preferences having 
+	# the same weighted value for an event
 	def topPrefs
 		@weighted = self.eventPrefs_weighted
 		
-		unless @weighted.empty?
+		unless @weighted.nil? || 	@weighted.empty?
 			@largestVal = @weighted.first[1]
 	    @prefs = ""
 
