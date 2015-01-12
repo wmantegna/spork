@@ -177,7 +177,9 @@
 
 					  </tbody>
 					</table> -->
-			<% else %>
+			<% end %>
+
+			<% unless @event.restaurant.nil? %>
 				<p>
 				  <strong>Restaurant:</strong>
 				  <%= @event.restaurant.name %>
