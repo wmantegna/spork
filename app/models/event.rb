@@ -32,7 +32,7 @@ class Event < ActiveRecord::Base
 			end
 		end
 
-		@rCount_h.sort
+		@rCount_h.sort.reverse
 	end
 
 	#
@@ -56,7 +56,23 @@ class Event < ActiveRecord::Base
 			end
 		end
 
-		@restrics_h.sort_by{|key, value| value}
+		@restrics_h.sort_by{|key, value| value}.reverse
+	end
+
+	def topRestrics
+		@weighted = self.eventRestrics_weighted
+		
+		@largestVal = @weighted.first[1]
+    @restrics = ""
+    
+    @weighted.each do |key, val|
+      if val == @largestVal
+        @restrics += key + ","
+      else
+        break
+      end
+    end
+    @topRestrics = @restrics[0, @restrics.length-1]
 	end
 
 
@@ -82,8 +98,9 @@ class Event < ActiveRecord::Base
 				@pCount_h[p.id] = @num
 			end
 		end
-
-		@pCount_h.sort
+		
+		#raise
+		@pCount_h.sort.reverse
 	end
 
 	#
@@ -107,6 +124,22 @@ class Event < ActiveRecord::Base
 			end
 		end
 
-		@prefs_h.sort_by{|key, value| value}
+		@prefs_h.sort_by{|key, value| value}.reverse
+	end
+
+	def topPrefs
+		@weighted = self.eventPrefs_weighted
+		
+		@largestVal = @weighted.first[1]
+    @prefs = ""
+
+    @weighted.each do |key, val|
+      if val == @largestVal
+        @prefs += key + ","
+      else
+        break
+      end
+    end
+    @topPrefs = @prefs[0, @prefs.length-1]
 	end
 end

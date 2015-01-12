@@ -45,6 +45,7 @@
 			<ul>
 				<li><b>counts:</b> <%= @event.eventPrefs %></li>
 				<li><b>weighted:</b> <%= @event.eventPrefs_weighted %></li>
+				<li><b>Top Prefs:</b> <%= @event.topPrefs %></li>
 			</ul>
 		</td>
 	</tr>
@@ -54,6 +55,7 @@
 			<ul>
 				<li><b>counts:</b> <%= @event.eventRestrics %></li>
 				<li><b>weighted:</b> <%= @event.eventRestrics_weighted %></li>
+				<li><b>Top Restrics:</b> <%= @event.topRestrics %></li>
 			</ul>
 			
 		</td>
@@ -61,7 +63,121 @@
 	<tr>
 		<td colspan="2">
 			<b>Restaurants:</b>
-			<% unless @event.restaurant.nil? %>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<% if @event.restaurant.nil? %>
+
+				<strong>Yelp Results:</strong>
+				<br />
+				<br />
+				<table>
+					<% @businesses.each do |b| %>
+						<tr>
+							<td>
+								<%= image_tag b["image_url"] %>
+							</td>
+							<% @padding = "2px" %>
+							<td style="position: relative; vertical-align: top; padding: <%= @padding %>; border: 1px solid black;">
+								<b><%= b["name"] %></b><br />
+								
+								<% @cat = "" %>
+								<% b["categories"].each do |c| %>
+									<% @cat += c[0] + ", " %>
+								<% end %>
+								<%= @cat[0, @cat.length-2] %>
+
+								<%= image_tag b["rating_img_url"], style: "position: absolute; right: 2px;  top: 2px;" %>
+
+								<br />
+
+								<div style="position: absolute; bottom: <%= @padding %>;">
+									<%= b["location"]["display_address"][0] %>, <%= b["location"]["display_address"][1] %>
+								</div>
+						</td>
+						</tr>
+					<% end %>
+				</table>
+
+					<!-- <table class="yelpTable">
+					  <thead>
+					    <tr>
+					      <th>name</th>
+					      <th>categories</th>
+
+					      <th>review_count</th>
+					      <th>location</th>
+					      
+					      <th>phone</th>
+					      <th>url</th>
+
+					      <th>snippet_text</th>
+
+					      <th>rating</th>
+
+					      <th>is_claimed</th>
+					      <th>mobile_url</th>
+
+					      <th>image_url</th>
+					      <th>snippet_image_url</th>
+
+					      <th>id</th>
+					      <th>is_closed</th>
+					      
+					    </tr>
+					  </thead>
+
+					  <tbody>
+
+					    <% @businesses.each do |b| %>
+					      <tr>
+
+					        <td><%= b["name"] %></td>
+					        <td><%= b["categories"] %></td>
+					        
+					        <td><%= b["review_count"] %></td>
+					        <td class="wide">
+					          <b>City:</b> <%= b["location"]["city"] %><br />
+					          <b>display_address:</b> <%= b["location"]["display_address"] %><br />
+					          <b>neighborhoods:</b> <%= b["location"]["neighborhoods"] %><br />
+					          <b>country_code:</b> <%= b["location"]["country_code"] %><br />
+					          <b>address:</b> <%= b["location"]["address"] %><br />
+					          <b>state_code:</b> <%= b["location"]["state_code"] %><br />
+					        </td>
+
+					        <td>
+					          <%= b["phone"] %>
+					          <br /><br/ >
+					          <%= b["display_phone"] %>
+					        </td>
+					        <td><%= b["url"] %></td>
+
+					        <td class="wide"><%= b["snippet_text"] %></td>
+
+					        <td class="med">
+					          <%= b["rating"] %><br />
+					          <%= image_tag b["rating_img_url"] %><br />
+					          <%= image_tag b["rating_img_url_small"] %><br />
+					          <%= image_tag b["rating_img_url_large"] %>
+					        </td>
+
+					        <td><%= b["is_claimed"] %></td>
+					        <td><%= b["mobile_url"] %></td>
+					        
+					        <td><%= image_tag b["image_url"] %></td>
+					        <td><%= image_tag b["snippet_image_url"] %></td>
+					        
+					        <td><%= b["id"] %></td>
+					        <td><%= b["is_closed"] %></td>
+					        
+
+					      </tr>
+					    <% end %>
+
+					  </tbody>
+					</table> -->
+			<% else %>
 				<p>
 				  <strong>Restaurant:</strong>
 				  <%= @event.restaurant.name %>

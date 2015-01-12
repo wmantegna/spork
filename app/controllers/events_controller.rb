@@ -1,4 +1,7 @@
 class EventsController < ApplicationController
+  
+  include Yelp::V2::Search::Request
+
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   # GET /events
@@ -10,6 +13,20 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+
+    @client = Yelp::Client.new
+
+
+    @request = Location.new(
+      :term => @event.topPrefs,
+      :zipcode => @event.zip,
+      :limit => "3"
+      #:category_filter => @yelp_search.category_filter,
+      #:radius_filter => @yelp_search.radius_filter,
+    )
+
+    @response = @client.search(@request)
+    @businesses = @response.to_h["businesses"]
   end
 
   # GET /events/new
