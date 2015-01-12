@@ -124,7 +124,7 @@ class Event < ActiveRecord::Base
 		@userCount = self.users.count
 		@prefs_h = Hash.new
 		
-		unless @pCount_h.nil? || @pCount_h.empty?
+		unless @pCount_h.nil? && @pCount_h.empty?
 			
 			@pCount_h.each do |p|
 				@key = p[0]
