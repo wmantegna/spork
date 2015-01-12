@@ -141,7 +141,7 @@ class Event < ActiveRecord::Base
 					@val = p[1]
 				
 					unless @val == 0
-						@pref = Restriction.find(@key)
+						@pref = Preference.find(@key)
 						@weighted_val = (@val / @userCount.to_f).round(4)
 						@prefs_h[@pref.name] = @weighted_val
 					end
