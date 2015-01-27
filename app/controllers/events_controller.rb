@@ -16,7 +16,6 @@ class EventsController < ApplicationController
 
     @client = Yelp::Client.new
 
-
     @request = Location.new(
       :term => @event.topPrefs,
       :zipcode => @event.zip,
