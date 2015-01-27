@@ -72,11 +72,17 @@
 				<strong>Yelp Results:</strong>
 				<br />
 				<br />
-				<table>
+
+				<style>
+					.tblBiz { border-collapse: collapse; width: 75%; }
+					.tblBiz td { padding: 5px; margin: 0; border: 1px solid black; }
+				</style>
+
+				<table class="tblBiz">
 					<% @businesses.each do |b| %>
 						<tr>
-							<td>
-								<%= image_tag b["image_url"] %>
+							<td style="width:110px;">
+								<%= image_tag b["image_url"], style: "margin: 0" %>
 							</td>
 							<% @padding = "2px" %>
 							<td style="position: relative; vertical-align: top; padding: <%= @padding %>; border: 1px solid black;">
@@ -90,7 +96,7 @@
 								<% end %>
 								<%= @cat[0, @cat.length-2] %>
 
-								<%= image_tag b["rating_img_url"], style: "float: right; padding-left: 5px; position: absolute; top: 0; right: 0;" %>
+								<%= image_tag b["rating_img_url"], style: "float: right; padding-left: 5px; position: absolute; top: 5px; right: 5px;" %>
 
 								<br />
 
