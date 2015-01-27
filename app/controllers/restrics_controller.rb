@@ -6,6 +6,10 @@ class RestricsController < ApplicationController
 
     @user = User.find(params[:user_id])
     @restrictions = Restriction.order(:name).all
+    @userRestrics = ""
+    @user.restrictions.each do |r|
+      @userRestrics += r.id.to_s + ","
+    end
   end
 
   # POST /restrics

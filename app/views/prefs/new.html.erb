@@ -17,6 +17,19 @@
 			}
 		});
 
+
+		// loop through user's previously selected restric's to match UI to data
+		var prevPrefs = $('#prevPrefs').val().split(',')
+		var numPrefs = prevPrefs.length;
+
+		for (i=0; i <= numPrefs; i++) {
+			var p = prevPrefs[i];
+
+			if (p) {
+				$('#'+p).click();
+			}
+		}
+
 	});
 </script>
 
@@ -31,6 +44,7 @@
 		<tr>
 			<td>
 				<%= hidden_field_tag :user_id, 	@user.id %>
+				<%= hidden_field_tag "prevPrefs", 	@userPrefs %>
 
 				<% counter = 1; %>
         <% @preferences.each do |p| %>

@@ -5,7 +5,7 @@
 			
 			var id = $(this)[0].id;
 			var chk = $('.chk')[id-1];
-
+			console.log('this far');
 			if (chk.checked == true) {
 				chk.checked = false;
 				$(this).css('backgroundColor', 'white');
@@ -16,6 +16,18 @@
 				$(this).css('color', 'white');
 			}
 		});
+
+		// loop through user's previously selected restric's to match UI to data
+		var prevRestrics = $('#prevRestrics').val().split(',')
+		var numRestrics = prevRestrics.length;
+
+		for (i=0; i <= numRestrics; i++) {
+			var r = prevRestrics[i];
+			
+			if (r) {
+				$('#'+r).click();
+			}
+		}
 
 	});
 </script>
@@ -32,6 +44,7 @@
 		<tr>
 			<td>
 					<%= hidden_field_tag :user_id, 	@user.id %>
+					<%= hidden_field_tag "prevRestrics", 	@userRestrics %>
 
 					<% counter = 1; %>
 	        <% @restrictions.each do |r| %>

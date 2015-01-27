@@ -4,6 +4,10 @@ class PrefsController < ApplicationController
 
   	@user = User.find(params[:user_id])
   	@preferences = Preference.order(:name).all
+    @userPrefs = ""
+    @user.preferences.each do |p|
+      @userPrefs += p.id.to_s + ","
+    end
   end
 
   def create
@@ -26,7 +30,7 @@ class PrefsController < ApplicationController
       end
     end
 
-    redirect_to @user
+    redirect_to root_path
   end
 
 end
