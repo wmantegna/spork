@@ -4,13 +4,21 @@
     <div class="column">
       <table class="table">
         <tbody>
+          
           <% @users.each do |user| %>
             <tr>
+              <td><%= link_to user.name, user %></td>
               <td>
-                <%= link_to user.name, user %>
+                <%= form_for user do |f| %>
+                  <%= f.radio_button :admin, true %>Admin
+                  <%= f.radio_button :admin, false %>User
+                  <%= f.submit %>
+                <% end %>
               </td>
+
             </tr>
           <% end %>
+
         </tbody>
       </table>
     </div>

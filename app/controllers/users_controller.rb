@@ -21,19 +21,21 @@ class UsersController < ApplicationController
   	##              Preferences
   	################################################
 		#get items from input and add to an array
-		@prefs = params[:prefs]
-
-    #if event item is NOT in array, remove it from event
-    @user.preferences.each do |p|
-      unless @prefs.include? (p)
-        PreferencesUsers.where(user_id: @user, preference_id: p).first.destroy
+    @prefs = params[:prefs]
+    unless @prefs.nil?
+  		
+      #if event item is NOT in array, remove it from event
+      @user.preferences.each do |p|
+        unless @prefs.include? (p)
+          PreferencesUsers.where(user_id: @user, preference_id: p).first.destroy
+        end
       end
-    end
 
-    #if item is NOT in event array, add it to event
-    @prefs.each do |p|
-      unless @user.preferences.exists? (p)
-        @user.preferences << Preference.find(p)
+      #if item is NOT in event array, add it to event
+      @prefs.each do |p|
+        unless @user.preferences.exists? (p)
+          @user.preferences << Preference.find(p)
+        end
       end
     end
 		################################################
@@ -44,24 +46,33 @@ class UsersController < ApplicationController
   	################################################
 		#get items from input and add to an array
 		@restrics = params[:restrics]
-
-    #if event item is NOT in array, remove it from event
-    @user.restrictions.each do |r|
-      unless @restrics.include? (r)
-        RestrictionsUsers.where(user_id: @user, restriction_id: r).first.destroy
-      end
-    end
-
-    #if item is NOT in event array, add it to event
     unless @restrics.nil?
-      @restrics.each do |r|
-        unless @user.restrictions.exists? (r)
-          @user.restrictions << Restriction.find(r)
+
+      #if event item is NOT in array, remove it from event
+      @user.restrictions.each do |r|
+        unless @restrics.include? (r)
+          RestrictionsUsers.where(user_id: @user, restriction_id: r).first.destroy
+        end
+      end
+
+      #if item is NOT in event array, add it to event
+      unless @restrics.nil?
+        @restrics.each do |r|
+          unless @user.restrictions.exists? (r)
+            @user.restrictions << Restriction.find(r)
+          end
         end
       end
     end
   	################################################
-    redirect_to @user
+
+    @admin = params[:user][:admin]
+    unless @admin.nil?
+      @user.admin = @admin
+      @user.save
+    end
+
+    redirect_to users_path
   end
 
 
