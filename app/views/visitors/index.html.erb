@@ -1,8 +1,6 @@
 <% unless user_signed_in? %>
 
-	<%# image_tag "logo2.png", alt:"...", class: "img-responsive" %>
 	<%= image_tag "logo2.png", alt:"...", class: "img-responsive" %>
-
 	<%= button_to 'Sign in', signin_path, method: :get, class: "submitButton" %>
 
 <% else %>
@@ -13,7 +11,8 @@
 		}
 	</style>
 
-	<h2>Spoon Meets Fork</h2>
+	<h2 style="margin-bottom: 0;">Spoon Meets Fork</h2>
+	<h3 style="margin: 0;"><small>Dine Together</small></h3>
 
 	<table class="table myTable">
 	  <thead>
